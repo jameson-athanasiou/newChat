@@ -2,13 +2,14 @@ import $ from 'jquery';
 import io from 'socket.io-client';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import HomePage from './components/HomePage';
 
 const button = $('button');
 const input = $('input');
 const socket = io();
 
 ReactDOM.render(
-  <h1>Hello, world!</h1>,
+  <HomePage />,
   document.getElementById('root')
 );
 

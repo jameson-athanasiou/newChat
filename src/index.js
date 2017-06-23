@@ -1,3 +1,6 @@
+import $ from 'jquery';
+import io from 'socket.io-client';
+
 const button = $('button');
 const input = $('input');
 const socket = io();

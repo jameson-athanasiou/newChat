@@ -6,13 +6,19 @@ module.exports = {
     entry: {
         app: './src/index.js'
     },
+    module: {
+        loaders: [
+            {test: /\.js$/, exclude: /node_modules/, loader: "babel-loader"}
+        ]
+    },
     output: {
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'dist')
     },
     plugins: [
         new HtmlWebpackPlugin({
-          title: 'Home'
+          title: 'Chat',
+          template: './index.html'
         })
     ]
 };

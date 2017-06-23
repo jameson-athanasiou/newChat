@@ -1,9 +1,16 @@
 import $ from 'jquery';
 import io from 'socket.io-client';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 const button = $('button');
 const input = $('input');
 const socket = io();
+
+ReactDOM.render(
+  <h1>Hello, world!</h1>,
+  document.getElementById('root')
+);
 
 let key = null;
 let messages = [];

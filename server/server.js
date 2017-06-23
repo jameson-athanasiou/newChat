@@ -1,10 +1,17 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
+const webpackDevMiddleware = require('webpack-dev-middleware');
+const webpack = require('webpack');
+const webpackConfig = require('../webpack.config.dev');
 
+const compiler = webpack(webpackConfig);
 const app = express();
+
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
+
+const port = 8080;
 
 const clients = [];
 
@@ -13,6 +20,10 @@ function getRandom(min, max) {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min)) + min;
 }
+
+app.use(webpackDevMiddleware(compiler, {
+  publicPath: '/'
+}));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -46,7 +57,7 @@ app.use('/message', function (req, res) {
     }
 });
 
-app.use('/', express.static(path.resolve('public')));
+app.use('/', express.static(path.resolve('dist')));
 
 io.on('connection', function(socket){
     console.log('a user connected');
@@ -57,4 +68,6 @@ io.on('connection', function(socket){
 });
 
 
-http.listen(8080);
+http.listen(port);
+
+console.log(`Server listening on port ${port}`);

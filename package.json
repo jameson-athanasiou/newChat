@@ -5,7 +5,9 @@
   "main": "app.js",
   "author": "",
   "scripts": {
-    "start": "nodemon --watch server server/server.js"
+    "build": "webpack --config webpack.config.dev",
+    "start": "yarn build && yarn start-server",
+    "start-server": "nodemon --watch server server/server.js"
   },
   "dependencies": {
     "body-parser": "^1.17.2",
@@ -14,6 +16,9 @@
     "socketio": "^1.0.0"
   },
   "devDependencies": {
-    "nodemon": "^1.11.0"
+    "html-webpack-plugin": "^2.28.0",
+    "nodemon": "^1.11.0",
+    "webpack": "^3.0.0",
+    "webpack-dev-middleware": "^1.11.0"
   }
 }

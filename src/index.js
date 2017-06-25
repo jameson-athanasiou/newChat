@@ -1,20 +1,18 @@
 import $ from 'jquery';
-import io from 'socket.io-client';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import HomePage from './components/HomePage';
-
-const button = $('button');
-const input = $('input');
-const socket = io();
+import model from './model/model';
+import socketHandler from './service/socketHandler';
 
 ReactDOM.render(
   <HomePage />,
   document.getElementById('root')
 );
 
-let key = null;
-let messages = [];
+debugger;
+
+socketHandler.start();
 
 $.ajax({
     "method": "GET",
@@ -22,35 +20,6 @@ $.ajax({
 }).done(function(data) {
     console.info(data);
     if (data) {
-        key = data;
+        model.key = data;
     }
-});
-
-
-function handleReceivedMessage(data) {
-    const displayNode = $('#log ul');
-    //const fullHtmlString = '<li>' + data.client + ' says: ' + data.message + '</li>';
-    const fullHtmlString = `<li>${data.client} says: ${data.message}</li>`;
-    displayNode.append(fullHtmlString);
-}
-
-function sendMessage() {
-    const message = input.val();
-    $.ajax({
-        "Content-Type": "application/json",
-        "method": "POST",
-        "url": "/message",
-        "data": {
-            "message": message,
-            "client": key
-        }
-    }).done(function(data) {
-        //handleReceivedMessage(data);
-    });
-}
-
-button.on("click", sendMessage);
-
-socket.on('message', function (data) {
-    handleReceivedMessage(data);
 });

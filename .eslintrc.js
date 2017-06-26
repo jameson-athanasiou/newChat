@@ -12,6 +12,8 @@ module.exports = {
         }
      },
     "rules": {
+        "no-alert": "error",
+        "no-debugger": "error",
         "require-jsdoc": "warn",
         "valid-jsdoc": "warn"
     }

@@ -1,6 +1,6 @@
 import io from 'socket.io-client';
 
-export default class socketHandler() {
+export default new class socketHandler {
 
     constructor() {
         this.socket = io();
@@ -11,10 +11,11 @@ export default class socketHandler() {
     }
 
     _addSockets() {
-        this.socket.on('message', _handleReceivedMessage.bind(this, data));
+       // this.socket.on('message', this._handleReceivedMessage.bind(this));
     }
 
     _handleReceivedMessage(data) {
-        console.info(data);
+        debugger;
+        this.socket.emit('messageReceived', data);
     }
 }

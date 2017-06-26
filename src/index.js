@@ -10,8 +10,6 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-debugger;
-
 socketHandler.start();
 
 $.ajax({

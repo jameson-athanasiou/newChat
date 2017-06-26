@@ -45,8 +45,8 @@ app.use('/message', function (req, res) {
     console.log(req.body);
     if (clients.includes(req.body.client)) {
         const data = {
-            client: req.body.client,
-            message: req.body.message
+            author: req.body.client,
+            text: req.body.message
         };
         res.writeHead(200);
         io.emit('message', data);

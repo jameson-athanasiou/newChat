@@ -2,9 +2,14 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    devtool: 'cheap-eval-source-map',
+    devtool: 'inline-source-map',
     entry: {
         app: './src/index.js'
+    },
+    module: {
+        loaders: [
+            {test: /\.js$/, exclude: /node_modules/, loader: "babel-loader"}
+        ]
     },
     output: {
         filename: '[name].bundle.js',
@@ -12,7 +17,8 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-          title: 'Home'
+          title: 'Chat',
+          template: './index.html'
         })
     ]
 };

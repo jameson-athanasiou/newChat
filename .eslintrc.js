@@ -1,6 +1,6 @@
 module.exports = {
     "extends": "google",
-     "env": {
+    "env": {
         "browser": true,
         "node": true
     },
@@ -12,6 +12,7 @@ module.exports = {
         }
      },
     "rules": {
+        "max-len": [2, 100],
         "no-alert": "error",
         "no-debugger": "error",
         "require-jsdoc": "warn",

@@ -10,5 +10,14 @@ export function updateUsername (username) {
             username,
             "client": model.key
         }
+    }).done((data, something, xhr) => {
+        this._handleResponse(data, xhr);
     });
+}
+
+function _handleResponse(data, xhr) {
+    switch (xhr.status) {
+        case 304:
+            break;      
+    }
 }

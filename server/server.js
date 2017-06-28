@@ -46,10 +46,10 @@ app.use('/user', function (req, res) {
     const client = clients.find(client => client.key === req.body.client);
     if (client) {
         if (clients.some(client => client.username === req.body.username)) {
-            res.end(304, 'name is taken');
+            res.send(304, 'name is taken');
+            res.end();
         } else {
             client.username = req.body.username;
-            //res.writeHead(200);
             res.send(200, {
                 client: client.key,
                 username: client.username

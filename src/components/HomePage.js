@@ -21,9 +21,6 @@ export default class HomePage extends React.Component {
 
     sendMessage () {
         messageService.sendMessage(this.state.text);
-        this.setState({
-            text: ''
-        });
     }
 
     handleTextInput(event) {
@@ -33,7 +30,8 @@ export default class HomePage extends React.Component {
     }
 
     updateUsername() {
-        userService.updateUsername(this.state.text);
+        const userInput = window.prompt('What do you want your username to be?');
+        userService.updateUsername(userInput);
     }
 
     _addWatches() {

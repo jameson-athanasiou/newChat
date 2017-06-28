@@ -32,20 +32,43 @@ app.use(bodyParser.urlencoded({
 
 app.get('/auth', function (req, res) {
     let key = 'CHAT-' + getRandom(1000, 10000);
-    while (clients.includes(key)) {
+    while (clients.find(client => client.key === key)) {
         key = 'CHAT-' + getRandom(1000, 10000);
     }
-    clients.push(key);
+    clients.push({key});
     res.writeHead(201);
     res.write(key);
     res.end();
 });
 
+app.use('/user', function (req, res) {
+    console.log(req.body);
+    const client = clients.find(client => client.key === req.body.client);
+    if (client) {
+        if (clients.some(client => client.username === req.body.username)) {
+            res.send(304, 'name is taken');
+            res.end();
+        } else {
+            client.username = req.body.username;
+            res.send(200, {
+                client: client.key,
+                username: client.username
+            });
+            res.end();
+        }
+    } else {
+        res.writeHead(404);
+        res.end();
+    }
+});
+
 app.use('/message', function (req, res) {
     console.log(req.body);
-    if (clients.includes(req.body.client)) {
+    const client = clients.find(client => client.key === req.body.client);
+    if (client) {
         const data = {
-            author: req.body.client,
+            author: client.key,
+            username: client.username,
             text: req.body.message
         };
         res.writeHead(200);

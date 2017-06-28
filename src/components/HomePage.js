@@ -3,7 +3,8 @@ import Button from './Button';
 import ConversationArea from './ConversationArea';
 import io from 'socket.io-client';
 import TextBox from './TextBox';
-import * as service from '../service/message';
+import * as messageService from '../service/message';
+import * as userService from '../service/user';
 
 
 export default class HomePage extends React.Component {
@@ -19,13 +20,18 @@ export default class HomePage extends React.Component {
     }
 
     sendMessage () {
-        service.sendMessage(this.state.text);
+        messageService.sendMessage(this.state.text);
     }
 
     handleTextInput(event) {
         this.setState({
             text: event.target.value
         });
+    }
+
+    updateUsername() {
+        const userInput = window.prompt('What do you want your username to be?');
+        userService.updateUsername(userInput);
     }
 
     _addWatches() {
@@ -43,6 +49,7 @@ export default class HomePage extends React.Component {
                 <TextBox onChange={this.handleTextInput.bind(this)}/>
                 <Button onClick={this.sendMessage.bind(this)} />
                 <ConversationArea messages={this.state.receivedMessages} />
+                <Button onClick={this.updateUsername.bind(this)} />
               </div>;
     }
 }

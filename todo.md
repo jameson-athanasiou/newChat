@@ -1,5 +1,5 @@
-# clean up lint errors
 # add ability to change user name
+# clean up server.js and modularize the server in general
 # add literally any CSS
 # remove JQuery as a dependency
 # add chat rooms

@@ -1,7 +1,7 @@
 import $ from 'jquery';
-import React from 'react';
+import React from 'react'; // eslint-disable-line no-unused-vars
 import ReactDOM from 'react-dom';
-import HomePage from './components/HomePage';
+import HomePage from './components/HomePage'; // eslint-disable-line no-unused-vars
 import model from './model/model';
 import socketHandler from './service/socketHandler';
 
@@ -13,8 +13,8 @@ ReactDOM.render(
 socketHandler.start();
 
 $.ajax({
-    "method": "GET",
-    "url": "/auth",
+    'method': 'GET',
+    'url': '/auth',
 }).done(function(data) {
     console.info(data);
     if (data) {

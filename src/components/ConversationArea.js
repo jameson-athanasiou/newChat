@@ -14,7 +14,7 @@ export default class ConversationArea extends React.Component {
 
     render() {
         return <ul>{this.props.messages.map((message, i) => {
-           return <li key={i}> {message.author} says: {message.text} </li>
+           return <li key={i}> {message.username} says: {message.text} </li>
         })}</ul>; 
     }
 }

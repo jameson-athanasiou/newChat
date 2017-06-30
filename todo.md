@@ -1,3 +1,4 @@
+# setup deployment with bamboo or something
 # add literally any CSS
 # add chat rooms
 # bring in Redux for fun(?)

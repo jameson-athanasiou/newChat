@@ -1,6 +1,5 @@
-# add ability to change user name
-# clean up server.js and modularize the server in general (add chalk for cool colors)
 # add literally any CSS
-# remove JQuery as a dependency
 # add chat rooms
 # bring in Redux for fun(?)
+# add unit tests (and tell yourself its for learning purposes and you reeeaaaallly should...)
+# maybe use vue or something other than react?

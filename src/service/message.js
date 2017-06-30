@@ -1,8 +1,26 @@
-import $ from 'jquery';
 import model from '../model/model';
 
 export function sendMessage (message) {
-    $.ajax({
+
+    const postData = {
+        message: message,
+        client: model.key
+    };
+
+    fetch('/message', {
+        method: 'post',
+        body: JSON.stringify(postData)
+    }).then(data => data.json()).then(data => {
+        console.info(data);
+    });
+
+
+
+
+
+/*
+
+        $.ajax({
         "Content-Type": "application/json",
         "method": "POST",
         "url": "/message",
@@ -13,4 +31,10 @@ export function sendMessage (message) {
     }).done(function(data) {
         console.info(data);
     });
+
+    */
+
+
+
+
 }

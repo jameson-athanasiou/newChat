@@ -1,23 +1,25 @@
-import $ from 'jquery';
 import model from '../model/model';
 
 export function updateUsername (username) {
-    $.ajax({
-        "Content-Type": "application/json",
-        "method": "POST",
-        "url": "/user",
-        "data": {
-            username,
-            "client": model.key
-        }
-    }).done((data, something, xhr) => {
-        this._handleResponse(data, xhr);
+    const postData = {
+        username,
+        client: model.key
+    };
+
+    fetch('/user', {
+        method: 'post',
+        "Content-type": "application/json",
+        body: JSON.stringify(postData)
+    }).then(data => data.json()).then(data => {
+        this._handleResponse(data);
     });
+
+
 }
 
 function _handleResponse(data, xhr) {
     switch (xhr.status) {
         case 304:
-            break;      
+            break;
     }
 }

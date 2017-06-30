@@ -10,12 +10,13 @@
     "lint-fix": "./node_modules/.bin/eslint --fix src/*.js",
     "prepush": "yarn build && yarn lint",
     "start": "yarn build && yarn start-server",
-    "start-server": "nodemon --watch server server/server.js"
+    "start-debug": "yarn build && yarn start-server-debug",
+    "start-server": "nodemon --watch server server/server.js",
+    "start-server-debug": "nodemon --inspect --watch server server/server.js"
   },
   "dependencies": {
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
-    "jquery": "^3.2.1",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "socketio": "^1.0.0"

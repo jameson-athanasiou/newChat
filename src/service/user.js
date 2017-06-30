@@ -3,7 +3,7 @@ import model from '../model/model';
 export function updateUsername (username) {
     const postData = {
         username,
-        client: model.key
+        id: model.id
     };
 
     fetch('/user', {
@@ -11,7 +11,7 @@ export function updateUsername (username) {
         "Content-type": "application/json",
         body: JSON.stringify(postData)
     }).then(data => data.json()).then(data => {
-        this._handleResponse(data);
+        //this._handleResponse(data);
     });
 
 

@@ -1,7 +1,7 @@
 import model from '../model/model';
 
 export function authenticateUser() {
-  fetch('/auth').then(data => data.json()).then(data => {
-    model.key = data.key;
-  });
+    fetch('/authenticate').then(data => data.json()).then(data => {
+        model.id = data.id;
+    });
 }

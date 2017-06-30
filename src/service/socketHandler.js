@@ -15,7 +15,6 @@ export default new class socketHandler {
     }
 
     _handleReceivedMessage(data) {
-        debugger;
         this.socket.emit('messageReceived', data);
     }
 }

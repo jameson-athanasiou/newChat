@@ -36,48 +36,52 @@ app.get('/auth', function (req, res) {
         key = 'CHAT-' + getRandom(1000, 10000);
     }
     clients.push({key});
-    res.writeHead(201);
-    res.write(key);
+    res.status(201).send({key});
     res.end();
 });
 
 app.use('/user', function (req, res) {
-    console.log(req.body);
-    const client = clients.find(client => client.key === req.body.client);
-    if (client) {
-        if (clients.some(client => client.username === req.body.username)) {
-            res.send(304, 'name is taken');
-            res.end();
+    req.on('data', data => {
+        const payload = JSON.parse(data.toString());
+        const client = clients.find(client => client.key === payload.client);
+
+        if (client) {
+            if (clients.some(client => client.username === payload.username)) {
+                res.status(304);
+                res.end();
+            } else {
+                client.username = payload.username;
+                res.status(200).send({
+                    client: client.key,
+                    username: client.username
+                });
+                res.end();
+            }
         } else {
-            client.username = req.body.username;
-            res.send(200, {
-                client: client.key,
-                username: client.username
-            });
+            res.writeHead(404);
             res.end();
         }
-    } else {
-        res.writeHead(404);
-        res.end();
-    }
+    });
 });
 
 app.use('/message', function (req, res) {
-    console.log(req.body);
-    const client = clients.find(client => client.key === req.body.client);
-    if (client) {
-        const data = {
-            author: client.key,
-            username: client.username,
-            text: req.body.message
-        };
-        res.writeHead(200);
-        io.emit('message', data);
-        res.end();
-    } else {
-        res.writeHead(403);
-        res.end();
-    }
+    req.on('data', data => {
+        const payload = JSON.parse(data.toString());
+        const client = clients.find(client => client.key === payload.client);
+        if (client) {
+            const data = {
+                author: client.key,
+                username: client.username,
+                text: payload.message
+            };
+            res.writeHead(200);
+            io.emit('message', data);
+            res.end();
+        } else {
+            res.writeHead(403);
+            res.end();
+        }
+    });
 });
 
 app.use('/', express.static(path.resolve('dist')));

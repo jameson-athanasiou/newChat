@@ -8,4 +8,6 @@ deploy:
     provider: heroku
     api_key:
         secure: "3db23a27-eb6f-417a-9db0-275178e7eb66"
-    app: chat
+    app: arctic-toque-13894
+notifications:
+  email: false

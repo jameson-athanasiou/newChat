@@ -5,9 +5,10 @@ cache:
     directories:
         - "node_modules"
 deploy:
-    provider: heroku
-    api_key:
-        secure: "3db23a27-eb6f-417a-9db0-275178e7eb66"
-    app: arctic-toque-13894
+    provider: pages
+    skip_cleanup: true
+    github_token: f6a03dab808be537f81fd53ca3d15133f68eede9
+    on:
+        branch: master
 notifications:
   email: false

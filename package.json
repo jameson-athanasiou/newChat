@@ -11,7 +11,7 @@
         "build": "webpack --config webpack.config.dev",
         "lint": "./node_modules/.bin/eslint src/*.js",
         "lint-fix": "./node_modules/.bin/eslint --fix src/*.js",
-        "prepush": "yarn build && yarn lint",
+        "prepush": "yarn build && yarn lint && yarn test",
         "start": "yarn build && yarn start-server",
         "start-debug": "yarn build && yarn start-server-debug",
         "start-server": "nodemon --watch server server/server.js",

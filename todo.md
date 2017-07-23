@@ -3,5 +3,5 @@
 # add chat rooms
 # add logins
 # bring in Redux for fun(?)
-# add unit tests (and tell yourself its for learning purposes and you reeeaaaallly should...)
+# use sauce or alternative
 # maybe use vue or something other than react?

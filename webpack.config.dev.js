@@ -7,9 +7,15 @@ module.exports = {
         app: './src/index.js'
     },
     module: {
-        loaders: [
-            {test: /\.js$/, exclude: /node_modules/, loader: "babel-loader"}
-        ]
+        loaders: [{
+            test: /\.js$/,
+            exclude: /node_modules/,
+            loader: 'babel-loader',
+            include: [
+                path.join(__dirname, 'src'),
+                path.join(__dirname, 'test')
+            ],
+        }]
     },
     output: {
         filename: '[name].bundle.js',

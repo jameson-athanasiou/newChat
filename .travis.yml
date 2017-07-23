@@ -11,9 +11,6 @@ addons:
       - google-chrome
     packages:
       - google-chrome-beta
-before_install:
-    - # start your web application and listen on `localhost`
-    - google-chrome-beta --headless --no-sandbox --disable-gpu
 before_script:
   - export CHROME_BIN=chromium-browser
   - "export DISPLAY=:99.0"

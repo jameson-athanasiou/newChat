@@ -18,8 +18,11 @@ export function updateUsername (username) {
 }
 
 function _handleResponse(data, xhr) {
+    let retVal = '';
     switch (xhr.status) {
         case 304:
-            break;
+            retVal = '304';
     }
+
+    return retVal;
 }

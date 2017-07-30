@@ -4,8 +4,7 @@ import ConversationArea from './ConversationArea';
 import io from 'socket.io-client';
 import TextBox from './TextBox';
 import * as messageService from '../service/message';
-import * as userService from '../service/user';
-
+import userService from '../service/user';
 
 export default class HomePage extends React.Component {
 

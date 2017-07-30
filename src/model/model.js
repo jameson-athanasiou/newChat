@@ -1,5 +1,4 @@
-
-
 export default {
-    id: null
+    id: null,
+    errors: []
 }

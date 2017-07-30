@@ -1,10 +1,10 @@
-import model from '../model/model';
+import * as modelAccessor from '../model/modelAccessor';
 
 export function sendMessage (message) {
 
     const postData = {
-        message: message,
-        id: model.id
+        message,
+        id: modelAccessor.getId()
     };
 
     fetch('/message', {

@@ -3,5 +3,5 @@
 # add chat rooms
 # add logins
 # bring in Redux for fun(?)
-# use sauce or alternative
 # maybe use vue or something other than react?
+# add error handling

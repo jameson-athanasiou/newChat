@@ -1,28 +1,26 @@
-import model from '../model/model';
+import * as modelAccessor from '../model/modelAccessor';
+import errorHandler from '../model/errorHandler';
 
-export function updateUsername (username) {
-    const postData = {
-        username,
-        id: model.id
-    };
+export default {
+    updateUsername(username) {
+        const postData = {
+            username,
+            id: modelAccessor.getId()
+        };
 
-    fetch('/user', {
-        method: 'post',
-        "Content-type": "application/json",
-        body: JSON.stringify(postData)
-    }).then(data => data.json()).then(data => {
-        //this._handleResponse(data);
-    });
+        fetch('/user', {
+            method: 'post',
+            'Content-type': 'application/json',
+            body: JSON.stringify(postData)
+        }).then(response => {
+            if (!response.ok) {
+                errorHandler.handleServiceMessage(response.status, 'updateUsername');
+            }
+        });
+    },
 
-
-}
-
-function _handleResponse(data, xhr) {
-    let retVal = '';
-    switch (xhr.status) {
-        case 304:
-            retVal = '304';
+    _handleError(msg) {
+        console.error(msg);
     }
+};
 
-    return retVal;
-}

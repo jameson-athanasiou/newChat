@@ -1,5 +1,5 @@
-import * as modelAccessor from '../model/modelAccessor';
-import errorHandler from '../model/errorHandler';
+import * as modelAccessor from 'src/model/modelAccessor';
+import errorHandler from 'src/model/errorHandler';
 
 export default {
     updateUsername(username) {
@@ -14,7 +14,7 @@ export default {
             body: JSON.stringify(postData)
         }).then(response => {
             if (!response.ok) {
-                errorHandler.handleServiceMessage(response.status, 'updateUsername');
+                errorHandler.handleServiceError(response.status, 'updateUsername');
             }
         });
     },

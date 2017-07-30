@@ -8,7 +8,7 @@
         "node": "7.9.0"
     },
     "scripts": {
-        "build": "webpack --config webpack.config.dev",
+        "build": "webpack --config ./config/webpack.config.dev",
         "lint": "./node_modules/.bin/eslint src/*.js",
         "lint-fix": "./node_modules/.bin/eslint --fix src/*.js",
         "prepush": "yarn build && yarn lint && yarn test",
@@ -47,6 +47,7 @@
         "mocha-webpack": "^0.7.0",
         "nodemon": "^1.11.0",
         "sinon": "^2.3.8",
+        "testdouble": "^3.2.2",
         "webpack": "^3.0.0",
         "webpack-dev-middleware": "^1.11.0"
     }

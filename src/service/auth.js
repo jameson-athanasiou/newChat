@@ -1,7 +1,9 @@
-import * as modelAccessor from '../model/modelAccessor';
+import * as modelAccessor from 'src/model/modelAccessor';
 
-export function authenticateUser() {
-    fetch('/authenticate').then(data => data.json()).then(data => {
-        modelAccessor.setId(data.id);
-    });
+export default {
+    authenticateUser() {
+        fetch('/authenticate').then(data => data.json()).then(data => {
+            modelAccessor.setId(data.id);
+        });
+    }
 }

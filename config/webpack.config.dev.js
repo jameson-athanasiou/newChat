@@ -1,10 +1,11 @@
 const path = require('path');
+const paths = require('./paths');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     devtool: 'inline-source-map',
     entry: {
-        app: './src/index.js'
+        app: paths.src + '/index.js'
     },
     module: {
         loaders: [{
@@ -12,14 +13,20 @@ module.exports = {
             exclude: /node_modules/,
             loader: 'babel-loader',
             include: [
-                path.join(__dirname, 'src'),
-                path.join(__dirname, 'test')
+                paths.src,
+                paths.appTest
             ],
         }]
     },
     output: {
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'dist')
+    },
+    resolve: {
+        alias: {
+            src: paths.src,
+            test: paths.appTest
+        }
     },
     plugins: [
         new HtmlWebpackPlugin({

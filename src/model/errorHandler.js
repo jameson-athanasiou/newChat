@@ -11,9 +11,9 @@ export default {
         this._processError(constants.ERROR.NON_FATAL, errorCode, message);
     },
 
-    handleServiceMessage(errorCode, serviceCall, message, isFatal) {
-        const msg = `{serviceCall} failure: ${errorCode} - ${message}`;
-        isFatal ? this.handleFatalError(errorCode, message) : this.handleNonFatalError(errorCode, message);
+    handleServiceError(errorCode, serviceCall, message, isFatal) {
+        const msg = `${serviceCall} failure: ${errorCode} - ${message}`;
+        isFatal ? this.handleFatalError(errorCode, msg) : this.handleNonFatalError(errorCode, msg);
     },
 
     _processError(type, code, message) {

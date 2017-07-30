@@ -8,6 +8,8 @@ const config = {
 
 if (args.debug) {
     config.singleRun = false;
+    captureTimeout = 180000;
+
 }
 
 new Server(config, function (exitCode) {

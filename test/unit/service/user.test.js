@@ -1,46 +1,34 @@
-import user from './../../../src/service/user';
-import * as modelAccessor from './../../../src/model/modelAccessor';
-import errorHandler from './../../../src/model/errorHandler';
-import chai from 'chai';
-import sinon from 'sinon';
-
-/*
-const user = require('./../../../src/service/user');
-const modelAccessor = require('./../../../src/model/modelAccessor');
-const chai = require('chai');
-const sinon = require('sinon');
-*/
+import user from 'src/service/user';
+import * as modelAccessor from 'src/model/modelAccessor';
+import errorHandler from 'src/model/errorHandler';
+import td from 'testdouble';
 
 describe('User tests', function () {
 
-    const assert = chai.assert;
-    const sandbox = sinon.sandbox.create();
-    let spies = {};
-    let stubs = {};
+    const doubles = {};
+
+    before(function () {
+        td.config({
+            ignoreWarnings: true
+        });
+    });
 
     beforeEach(function () {
-        spies = {};
-        stubs = {};
+        doubles.fetch = td.replace(window, 'fetch');
+        doubles.handleServiceError = td.replace(errorHandler, 'handleServiceError');
+    });
 
-        stubs.fetch = sandbox.stub(window, 'fetch');
-        stubs.handleServiceError = sandbox.stub(errorHandler, 'handleServiceError');
+    after(function () {
+        td.config({
+            ignoreWarnings: false
+        });
     });
 
     afterEach(function () {
-        spies = {};
-        stubs = {};
-        sandbox.restore();
+        td.reset();
     }); 
 
-    it('When updating the user name Then fetch is called with the correct endpoint', function () {
-        stubs.fetch.resolves();
-        user.updateUsername();
-        assert.isTrue(stubs.fetch.calledWith('/user'), 'fetch not called with the correct endpoint');
-    });
-
-    it('When updating the user name Then the headers are set correctly', function () {
-        stubs.getId = sandbox.stub(modelAccessor, 'getId').returns('1234');
-
+    it('When updating the user name Then fetch is called with the correct endpoint and options', function () {
         const username = 'xXitsMe_1995Xx';
         const postData = {
             username,
@@ -52,27 +40,30 @@ describe('User tests', function () {
             body: JSON.stringify(postData)
         }; 
 
-        stubs.fetch.resolves();
+        doubles.getId = td.replace(modelAccessor, 'getId');
+        td.when(doubles.getId()).thenReturn('1234');       
+        td.when(doubles.fetch(td.matchers.anything(), td.matchers.anything())).thenReturn(Promise.resolve());
+
         user.updateUsername(username);
 
-        const passedHeaders = stubs.fetch.args[0][1];
-
-        assert.deepEqual(passedHeaders, expectedHeaders, 'headers were not correct');
+        td.verify(doubles.fetch('/user', expectedHeaders));
     });
 
-    it.only('Given a fetch error When updating the user name Then the error is logged', function () {
-        stubs.getId = sandbox.stub(modelAccessor, 'getId').returns('1234');
+    it('Given a fetch error When updating the user name Then the error is logged', function () {
+        doubles.getId = td.replace(modelAccessor, 'getId');
+        td.when(doubles.getId()).thenReturn('1234'); 
 
-        stubs.fetch.returns(Promise.resolve({
+        const prom = Promise.resolve({
             ok: false,
             status: 500,
             statusText: 'There was an error'
-        }));
+        });
+
+        td.when(doubles.fetch('/user', td.matchers.anything())).thenReturn(prom);
          
         user.updateUsername();
-        
-        assert.isTrue(stubs.handleServiceError.called, 'handleServiceError not called');
-        assert.equal(stubs.handleServiceError.args[0], 'Update user name failed: 500 There was an error');
-        //assert.isTrue(stubs.error.calledWith('Update user name failed: 500 There was an error', 'error not thrown correctly'));
+        prom.then(() => {
+            td.verify(doubles.handleServiceError(500, 'updateUsername'));
+        });
     });
 });

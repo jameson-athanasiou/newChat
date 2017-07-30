@@ -1,7 +1,6 @@
 const path = require('path');
 const paths = require('./paths');
-
-const pathToTests = `${paths.appTest}/test/unit/**/*.test.js`;
+const webpackConfig = require('./webpack.config.dev');
 
 module.exports = function (config) {
   config.set({
@@ -24,21 +23,26 @@ module.exports = function (config) {
       devtool: 'inline-source-map', //just do inline source maps instead of the default
       module: {
         loaders: [{
-            test: /\.js$/,
-            exclude: /node_modules/,
-            loader: 'babel-loader',
-            include: [
-                path.join(__dirname, 'src'),
-                path.join(__dirname, 'test')
-            ],
+          test: /\.js$/,
+          exclude: /node_modules/,
+          loader: 'babel-loader',
+          include: [
+            paths.src,
+            paths.appTest
+          ],
         }]
       },
       externals: {
         'react/lib/ExecutionEnvironment': true,
         'react/lib/ReactContext': true
+      },
+      resolve: {
+        alias: {
+          src: paths.src,
+          test: paths.appTest
+        }
       }
-    },
-
+    },  
     webpackMiddleware: {
       // webpack-dev-middleware configuration
       // i.e.
@@ -49,7 +53,6 @@ module.exports = function (config) {
         chunks: false
       }
     },
-
     plugins: [
       require("karma-webpack"),
       require("karma-mocha"),

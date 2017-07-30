@@ -1,29 +1,50 @@
-const auth = require('./../../../src/service/auth');
-const chai = require('chai');
-const sinon = require('sinon');
-
+import auth from 'src/service/auth';
+import * as modelAccessor from 'src/model/modelAccessor';
+import td from 'testdouble';
 
 describe('auth tests', function () {
 
-    const assert = chai.assert;
-    const sandbox = sinon.sandbox.create();
-    const stubs = {};
+    const doubles = {};
+
+    before(function () {
+        td.config({
+            ignoreWarnings: true
+        });
+    });
 
     beforeEach(function () {
-        stubs.fetch = sandbox.stub(window, 'fetch');
+        doubles.fetch = td.replace(window, 'fetch');
+    });
+
+    after(function () {
+        td.config({
+            ignoreWarnings: false
+        });
     });
 
     afterEach(function () {
-        sandbox.restore();
+        td.reset();
     });
 
     it('When authenticating the user Then fetch should be called with the correct endpoint', function () {
-        stubs.fetch.resolves();
+        td.when(doubles.fetch(td.matchers.anything())).thenReturn(Promise.resolve());
         auth.authenticateUser();
-        assert.isTrue(stubs.fetch.calledWith('/authenticate'), 'fetch not called with the correct endpoint');
+        td.verify(doubles.fetch('/authenticate'));
     });
 
-    it('should be true', function() {
-        assert.equal(1,1, 'one is not one for some reason');
-    });
+    it('When authenticating the user Then the user id is set on the model', function () {
+        const prom = Promise.resolve({
+            id: 'test-id'
+        });
+        
+        doubles.setId = td.replace(modelAccessor, 'setId');
+        td.when(doubles.fetch('/authenticate')).thenResolve(Promise.resolve({
+            json: () => prom
+        }));
+         
+        auth.authenticateUser();
+        prom.then(() => {
+            td.verify(doubles.setId('test-id'));
+        });
+    }); 
 });

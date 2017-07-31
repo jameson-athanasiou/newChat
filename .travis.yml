@@ -24,3 +24,6 @@ deploy:
         branch: master
 notifications:
   email: false
+  slack: dover-boys:HekMr2x7RnLbKn5pCAKmqnLR
+    
+

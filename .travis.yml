@@ -16,14 +16,18 @@ before_script:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
   - sleep 3 # give xvfb some time to start
-#deploy:
-    #provider: pages
-    #skip_cleanup: true
-    #github_token: f6a03dab808be537f81fd53ca3d15133f68eede9
-    #on:
-       # branch: master
 notifications:
   email: false
-  slack: dover-boys:HekMr2x7RnLbKn5pCAKmqnLR
+  slack:
+    rooms: 
+      - dover-boys:HekMr2x7RnLbKn5pCAKmqnLR
+    template:
+      - "Build <%{build_url}|#%{build_number}> (<%{compare_url}|%{commit}>)"
+      - "Repo: %{repository} - Branch: %{branch}"
+      - "Build Status: %{result} in %{duration}"
+      - "%{author}"
+      - "%{commit_message}"
+    on_success: always # default: always
+    on_failure: always # default: always
     
 

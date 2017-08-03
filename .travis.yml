@@ -19,11 +19,11 @@ before_script:
 notifications:
   email: false
   slack: dover-boys:HekMr2x7RnLbKn5pCAKmqnLR
-  template:
-      - "Build <%{build_url}|#%{build_number}> (<%{compare_url}|%{commit}>)"
-      - "Repo: %{repository} - Branch: %{branch}"
-      - "Build Status: %{result} in %{duration}"
-      - "%{author}"
-      - "%{commit}"
+    template:
+        - "Build <%{build_url}|#%{build_number}> (<%{compare_url}|%{commit}>)"
+        - "Repo: %{repository} - Branch: %{branch}"
+        - "Build Status: %{result} in %{duration}"
+        - "%{author}"
+        - "%{commit}"
     
 

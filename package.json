@@ -3,6 +3,7 @@
     "version": "0.0.1",
     "description": "",
     "main": "app.js",
+    "homepage": "https://arctic-toque-13894.herokuapp.com/",
     "author": "",
     "engines": {
         "node": "7.9.0"
@@ -11,6 +12,7 @@
         "build": "webpack --config ./config/webpack.config.dev",
         "lint": "./node_modules/.bin/eslint src/*.js",
         "lint-fix": "./node_modules/.bin/eslint --fix src/*.js",
+        "heroku-postbuild": "yarn build", 
         "prepush": "yarn build && yarn lint && yarn test",
         "start": "yarn build && yarn start-server",
         "start-debug": "yarn build && yarn start-server-debug",

@@ -16,7 +16,7 @@ const user = require('./userServer');
 const socket = new socketServer(http);
 socket.start();
 
-const port = process.env.port || 8080;
+const port = process.env.PORT || 8080;
 
 const serviceMap = {
     authentication: {

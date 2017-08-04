@@ -1,22 +1,18 @@
-const express = require('express');
-const path = require('path');
-const bodyParser = require('body-parser');
-const webpackDevMiddleware = require('webpack-dev-middleware');
-const webpack = require('webpack');
-const webpackConfig = require('../config/webpack.config.dev');
-const compiler = webpack(webpackConfig);
-const app = express();
-const http = require('http').Server(app);
-
 const authentication = require('./authServer');
+const bodyParser = require('body-parser');
+const express = require('express');
 const message = require('./messageServer');
 const socketServer = require('./socketServer');
+const path = require('path');
 const user = require('./userServer');
 
+const app = express();
+const http = require('http').Server(app);
 const socket = new socketServer(http);
-socket.start();
 
 const port = process.env.PORT || 8080;
+
+socket.start();
 
 const serviceMap = {
     authentication: {
@@ -32,10 +28,6 @@ const serviceMap = {
         cb: user
     }
 };
-
-app.use(webpackDevMiddleware(compiler, {
-  publicPath: '/'
-}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true

@@ -10,9 +10,10 @@
     },
     "scripts": {
         "build": "webpack --config ./config/webpack.config.dev",
+        "build-prod": "webpack --config ./config/webpack.config.prod",
         "lint": "./node_modules/.bin/eslint src/*.js",
         "lint-fix": "./node_modules/.bin/eslint --fix src/*.js",
-        "heroku-postbuild": "yarn build", 
+        "heroku-postbuild": "yarn build-prod",
         "prepush": "yarn build && yarn lint && yarn test",
         "start": "yarn build && yarn start-server",
         "start-debug": "yarn build && yarn start-server-debug",
@@ -51,6 +52,7 @@
         "sinon": "^2.3.8",
         "testdouble": "^3.2.2",
         "webpack": "^3.0.0",
-        "webpack-dev-middleware": "^1.11.0"
+        "webpack-dev-middleware": "^1.11.0",
+        "uglifyjs-webpack-plugin": "^0.4.6"
     }
 }

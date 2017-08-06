@@ -17,6 +17,9 @@ module.exports = {
             include: [
                 paths.src
             ],
+        }, {
+            test: /\.css$/,
+            use: ['style-loader', 'css-loader']
         }]
     },
     output: {
@@ -25,7 +28,8 @@ module.exports = {
     },
     resolve: {
         alias: {
-            src: paths.src
+            src: paths.src,
+            public: paths,public
         }
     },
     plugins: [

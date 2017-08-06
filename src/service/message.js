@@ -1,4 +1,4 @@
-import * as modelAccessor from '../model/modelAccessor';
+import * as modelAccessor from 'src/model/modelAccessor';
 
 export function sendMessage (message) {
 
@@ -10,7 +10,5 @@ export function sendMessage (message) {
     fetch('/message', {
         method: 'post',
         body: JSON.stringify(postData)
-    }).then(data => data.json()).then(data => {
-        console.info(data);
     });
 }

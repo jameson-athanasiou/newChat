@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import HomePage from './components/HomePage'; // eslint-disable-line no-unused-vars
 import socketHandler from './service/socketHandler';
 import auth from 'src/service/auth';
+import 'public/css/core.css';
 
 auth.authenticateUser();
 

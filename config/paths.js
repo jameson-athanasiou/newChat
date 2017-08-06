@@ -10,5 +10,6 @@ module.exports = {
     appHome: appDirectory,
     appConfig: resolvePath('config'),
     appTest: resolvePath('test'),
+    public: resolvePath('public'),
     src: resolvePath('src')
 }

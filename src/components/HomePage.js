@@ -1,10 +1,9 @@
 import React from 'react';
-import Button from './Button';
-import ConversationArea from './ConversationArea';
+import Button from 'src/components/Button';
+import ChatForm from 'src/components/ChatForm';
+import ConversationArea from 'src/components/ConversationArea';
 import io from 'socket.io-client';
-import TextBox from './TextBox';
-import * as messageService from '../service/message';
-import userService from '../service/user';
+import userService from 'src/service/user';
 
 export default class HomePage extends React.Component {
 
@@ -16,16 +15,6 @@ export default class HomePage extends React.Component {
         }
         this.socket = io();
         this._addWatches();
-    }
-
-    sendMessage () {
-        messageService.sendMessage(this.state.text);
-    }
-
-    handleTextInput(event) {
-        this.setState({
-            text: event.target.value
-        });
     }
 
     updateUsername() {
@@ -45,10 +34,9 @@ export default class HomePage extends React.Component {
 
     render() {
         return <div>
-                <TextBox onChange={this.handleTextInput.bind(this)}/>
-                <Button onClick={this.sendMessage.bind(this)} />
+                <ChatForm />
                 <ConversationArea messages={this.state.receivedMessages} />
-                <Button onClick={this.updateUsername.bind(this)} />
+                <Button onClick={this.updateUsername.bind(this)} text="Change Username"/>
               </div>;
     }
 }

@@ -11,6 +11,18 @@ const http = require('http').Server(app);
 const socket = new socketServer(http);
 
 const port = process.env.PORT || 8080;
+const environment = process.env.NODE_ENV;
+
+if (environment !== 'production') {
+    const webpackDevMiddleware = require('webpack-dev-middleware');
+    const webpack = require('webpack');
+    const webpackConfig = require('../config/webpack.config.dev');
+    const compiler = webpack(webpackConfig);
+
+    app.use(webpackDevMiddleware(compiler, {
+        publicPath: '/'
+    }));
+}
 
 socket.start();
 

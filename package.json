@@ -25,11 +25,13 @@
     "dependencies": {
         "body-parser": "^1.17.2",
         "chalk": "^2.0.1",
+        "css-loader": "^0.28.4",
         "express": "^4.15.3",
         "karma-nyan-reporter": "^0.2.5",
         "react": "^15.6.1",
         "react-dom": "^15.6.1",
-        "socketio": "^1.0.0"
+        "socketio": "^1.0.0",
+        "style-loader": "^0.18.2"
     },
     "devDependencies": {
         "babel-core": "^6.25.0",
@@ -51,8 +53,8 @@
         "nodemon": "^1.11.0",
         "sinon": "^2.3.8",
         "testdouble": "^3.2.2",
+        "uglifyjs-webpack-plugin": "^0.4.6",
         "webpack": "^3.0.0",
-        "webpack-dev-middleware": "^1.11.0",
-        "uglifyjs-webpack-plugin": "^0.4.6"
+        "webpack-dev-middleware": "^1.11.0"
     }
 }

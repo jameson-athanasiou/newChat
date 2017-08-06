@@ -15,8 +15,11 @@ module.exports = {
             include: [
                 paths.src,
                 paths.appTest
-            ],
-        }]
+            ]
+        }, {
+            test: /\.css$/,
+            use: ['style-loader', 'css-loader']
+        }],
     },
     output: {
         filename: '[name].bundle.js',
@@ -25,7 +28,8 @@ module.exports = {
     resolve: {
         alias: {
             src: paths.src,
-            test: paths.appTest
+            test: paths.appTest,
+            public: paths.public
         }
     },
     plugins: [

@@ -1,3 +1,4 @@
+const animals = require('animals');
 const chalk = require('chalk');
 
 module.exports = new class clientStore {
@@ -14,8 +15,15 @@ module.exports = new class clientStore {
         while (this.getClientById(newClientId)) {
             newClientId = this._generateNewClientId();
         }
+
+        let randomAnimal = animals();
+        while (this.getClientByUserName(randomAnimal)) {
+            randomAnimal = animals();
+        }
+
         const client = {
-            id: newClientId
+            id: newClientId,
+            userName: randomAnimal
         };
         this._clients.push(client);
         console.log(chalk.yellow(`New Client Created: ${client.id}`));

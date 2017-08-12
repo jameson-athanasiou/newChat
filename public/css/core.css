@@ -1,0 +1,16 @@
+.btn-send-message {
+    float: right;
+}
+
+.chat-form {
+    width: 100%;
+}
+
+.conversation-area {
+    border: 1px solid black;
+    height: 300px;
+}
+
+input.txt-send-message {
+    width: 80%;
+}

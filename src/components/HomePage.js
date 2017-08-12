@@ -19,24 +19,34 @@ export default class HomePage extends React.Component {
 
     updateUsername() {
         const userInput = window.prompt('What do you want your username to be?');
-        userService.updateUsername(userInput);
+        userInput && userService.updateUsername(userInput);
     }
 
     _addWatches() {
         this.socket.on('message', data => {
-            const receivedMessages = this.state.receivedMessages;
-            receivedMessages.push(data);
-            this.setState({
-                receivedMessages
-            });
+            this._updateMessages(data)
+        });
+    }
+
+    _updateMessages(data) {
+        const receivedMessages = this.state.receivedMessages;
+        receivedMessages.push(data);
+        this.setState({
+            receivedMessages
         });
     }
 
     render() {
         return <div>
-                <ChatForm />
-                <ConversationArea messages={this.state.receivedMessages} />
-                <Button onClick={this.updateUsername.bind(this)} text="Change Username"/>
-              </div>;
+            <Button
+                className="btn-username"
+                onClick={this.updateUsername.bind(this)}
+                text="Change Username"
+            />
+            <ConversationArea
+                messages={this.state.receivedMessages}
+            />
+            <ChatForm />
+            </div>;
     }
 }

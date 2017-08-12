@@ -5,14 +5,13 @@ module.exports = function (io, request, response) {
         const payload = JSON.parse(data.toString());
         const client = clientStore.getClientById(payload.id);
         if (client) {
-            const data = {
+            const responseData = {
                 author: client.id,
-                username: client.username,
+                userName: client.userName,
                 text: payload.message
             };
-
             response.writeHead(200);
-            io.emit('message', data);
+            io.emit('message', responseData);
             response.end();
         } else {
             response.writeHead(403);
